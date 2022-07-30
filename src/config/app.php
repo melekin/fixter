@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', true),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -198,7 +198,7 @@ return [
         /*
          * Debugging Service Provider
          */
-        'Barryvdh\Debugbar\ServiceProvider',
+        // 'Barryvdh\Debugbar\ServiceProvider',
 
     ],
 
@@ -216,7 +216,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         // debug me
-        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        // 'Debugbar' => 'Barryvdh\Debugbar\Facade',
     ])->toArray(),
 
 ];

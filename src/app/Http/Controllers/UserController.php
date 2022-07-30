@@ -25,26 +25,33 @@ class UserController extends Controller
     }
 
     // update user
-    public function update(Request $request)
+    public function update(Request $request, $user_id, $session_code)
     {
         // find the user with the provided id
-        $user = User::find($request->post('id'));
+        $user = User::find($user_id);
 
         // check to see if the provided session code matches
-        if($request->post('session_code' == $user->session_code))
+        if($session_code == $user->session_code)
         {
             $user->name = $request->post('name');
             $user->email = $request->post('email');
             $user->session_code = bin2hex(random_bytes(21));
             $user->save();
             return response()->json($user);
+        } else {
+            return response('Unauthorized', 401);
         }
     }
 
     // delete user
-    public function delete(Request $request){
-        $user = User::find($request->post('id'));
-        $user->delete();
-        return response()->json();
+    public function delete(Request $request, $user_id, $session_code){
+        $user = User::find($user_id);
+        if($user->session_code == $session_code)
+        {
+           $user->delete();
+           return response('Accepted', 202);
+        }   else    {
+            return response('Unauthorized', 401);
+        }
     }
 }
