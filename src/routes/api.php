@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObstacleController;
+use App\Http\Middleware\BasicAuthentication;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,10 @@ use App\Http\Controllers\ObstacleController;
 */
 
 // User Routes
-Route::post('/user/new', [UserController::class, 'new']);
-Route::get('/user/list', [UserController::class, 'list']);
-Route::post('/user/update/{user_id}/{session_code}', [UserController::class, 'update']);
-Route::post('/user/delete/{user_id}/{session_code}', [UserController::class, 'delete']);
+Route::post('/user/new', [UserController::class, 'new'])->withoutMiddleware([BasicAuthentication::class]);
+Route::post('/user/list', [UserController::class, 'list']);
+Route::post('/user/update', [UserController::class, 'update']);
+Route::post('/user/delete', [UserController::class, 'delete']);
 
 // obstacles
 Route::post('/obstacle/new/{user_id}/{session_code}', [ObstacleController::class, 'new']);
