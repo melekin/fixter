@@ -8,6 +8,14 @@ use App\Models\Obstacle;
 
 class ObstacleController extends Controller
 {
+    public $user;
+
+    // define user
+    public function __construct(Request $request)
+    {
+        $this->user = User::find($request->post('id'));
+    }
+    
     // create
     public function new(Request $request, $user_id, $session_code)
     {
@@ -33,18 +41,13 @@ class ObstacleController extends Controller
     }
 
     // read
-    public function list(Request $request, $user_id, $session_code)
+    public function list()
     {
-        // find the user with the provided id
-        $user = User::find($user_id);
-
-        // check to see if the provided session code matches
-        if($session_code == $user->session_code)
-        {
-            return response()->json($user->obstacles->all());
-        } else {
-            return response('Unauthorized', 401);
-        }
+        return response()->json([
+                'id' => $this->user->id,
+                'session_code' => $this->user->session_code,
+                'data' => $this->user->obstacles->all()
+            ]);
     }
 
     // update
