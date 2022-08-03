@@ -1,20 +1,11 @@
 services:
-  mysql:
-    image: docker.io/bitnami/mysql:latest
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_USER=fixter_app
-      - MYSQL_DATABASE=fixter_db
   laravel:
     image: docker.io/bitnami/laravel:latest
     ports:
       - '8000:8000'
     environment:
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USERNAME=fixter_app
-      - DB_DATABASE=fixter_db
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/app/database/schema/fixter.sqlite
+      - DB_FOREIGN_KEYS=true
     volumes:
       - './src:/app'
-    depends_on:
-      - mysql
