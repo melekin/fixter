@@ -24,8 +24,8 @@ Route::post('/user/update', [UserController::class, 'update']);
 Route::post('/user/delete', [UserController::class, 'delete']);
 
 // obstacles
-Route::post('/obstacle/new/{user_id}/{session_code}', [ObstacleController::class, 'new']);
-Route::post('/obstacle/list/', [ObstacleController::class, 'list']);
+Route::post('/obstacle/new', [ObstacleController::class, 'new']);
+Route::post('/obstacle/list', [ObstacleController::class, 'list']);
 Route::post('/obstacle/update/{user_id}/{session_code}', [ObstacleController::class, 'update']);
 Route::post('/obstacle/delete/{user_id}/{session_code}', [ObstacleController::class, 'delete']);
 // solutions

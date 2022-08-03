@@ -17,27 +17,14 @@ class ObstacleController extends Controller
     }
     
     // create
-    public function new(Request $request, $user_id, $session_code)
+    public function new(Request $request)
     {
-        // find the user with the provided id
-        $user = User::find($user_id);
-
-        // check to see if the provided session code matches
-        if($session_code == $user->session_code)
-        {
-            $obstacle = new Obstacle;
-            $obstacle->user_id = $user_id;
-            $obstacle->body = $request->post('body');
-            $obstacle->complete = $request->post('complete');
-            $obstacle->save();
-
-            // update the users session code
-            $user->session_code = bin2hex(random_bytes(21));
-            $user->save();
-            return response()->json($user);
-        } else {
-            return response('Unauthorized', 401);
-        }
+        $obstacle = new Obstacle;
+        $obstacle->user_id = $this->user->id;
+        $obstacle->body = $request->post('body');
+        $obstacle->complete = 0;
+        $obstacle->save();
+        return response()->json($this->user);
     }
 
     // read
